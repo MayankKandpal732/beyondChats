@@ -32,17 +32,17 @@ The goal of this assignment is to scrape blog articles from BeyondChats, store t
 
 ## 📂 Project Structure
 
-beyondchats-assignment/
-│
-├── controllers/
-│ └── articleController.js
-├── routes/
-│ └── articleRoutes.js
-├── scraper.js
-├── db.js
-├── server.js
-├── package.json
-└── README.md
+- beyondchats-assignment/
+- │
+- ├── controllers/
+- │ └── articleController.js
+- ├── routes/
+- │ └── articleRoutes.js
+- ├── scraper.js
+- ├── db.js
+- ├── server.js
+- ├── package.json
+- └── README.md
 
 
 ---
