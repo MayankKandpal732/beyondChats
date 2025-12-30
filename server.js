@@ -8,12 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-// TEMPORARY seed route (will remove later)
 app.get("/seed", (req, res) => {
   const sql =
     "INSERT INTO articles (title, content, source) VALUES (?, ?, ?)";
@@ -35,11 +33,10 @@ app.get("/seed", (req, res) => {
   );
 });
 
-// Article routes
 app.use("/articles", articleRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server started on port ${PORT}`);
 });
