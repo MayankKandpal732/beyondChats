@@ -9,7 +9,6 @@ async function scrapeAndSaveArticles() {
 
   const articles = [];
 
-  // Extract article cards
   $(".blog-card, article, .post").each((i, el) => {
     const title = $(el).find("h1, h2, h3").first().text().trim();
     const link = $(el).find("a").attr("href");
@@ -24,13 +23,9 @@ async function scrapeAndSaveArticles() {
     }
   });
 
-  // Take ONLY last 5 (oldest)
   const oldestFive = articles.slice(-5);
 
-  console.log("Saving oldest 5 articles to database...\n");
-
   for (let article of oldestFive) {
-    // Visit article page
     const response = await axios.get(article.link);
     const $$ = cheerio.load(response.data);
 
@@ -43,7 +38,6 @@ async function scrapeAndSaveArticles() {
       }
     });
 
-    // Insert into MySQL
     const sql =
       "INSERT INTO articles (title, content, source) VALUES (?, ?, ?)";
 
