@@ -1,58 +1,21 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
+const express = require("express");
+const cors = require("cors");
+const articleRoutes = require("./routes/articleRoutes");
 const db = require("./db");
 
-async function scrapeAndSaveArticles() {
-  const url = "https://beyondchats.com/blogs/";
-  const { data } = await axios.get(url);
-  const $ = cheerio.load(data);
+const app = express();
 
-  const articles = [];
+app.use(cors());
+app.use(express.json());
 
-  $(".blog-card, article, .post").each((i, el) => {
-    const title = $(el).find("h1, h2, h3").first().text().trim();
-    const link = $(el).find("a").attr("href");
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
 
-    if (title && link) {
-      articles.push({
-        title,
-        link: link.startsWith("http")
-          ? link
-          : "https://beyondchats.com" + link
-      });
-    }
-  });
+app.use("/articles", articleRoutes);
 
-  const oldestFive = articles.slice(-5);
+const PORT = process.env.PORT || 5000;
 
-  for (let article of oldestFive) {
-    const response = await axios.get(article.link);
-    const $$ = cheerio.load(response.data);
-
-    let content = "";
-
-    $$("p").each((i, el) => {
-      const text = $$(el).text().trim();
-      if (text.length > 40) {
-        content += text + "\n\n";
-      }
-    });
-
-    const sql =
-      "INSERT INTO articles (title, content, source) VALUES (?, ?, ?)";
-
-    db.query(
-      sql,
-      [article.title, content, "BeyondChats"],
-      (err, result) => {
-        if (err) {
-          console.error("DB Error:", err.message);
-        } else {
-          console.log("Saved:", article.title);
-        }
-      }
-    );
-  }
-}
-
-scrapeAndSaveArticles();
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server started on port ${PORT}`);
+});
