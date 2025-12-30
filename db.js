@@ -1,16 +1,19 @@
-require("dotenv").config();
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: "beyondchats"
+  database: process.env.DB_NAME,
+  port: Number(process.env.DB_PORT),
 });
 
-db.connect(err => {
-  if (err) console.error(err);
-  else console.log("MySQL connected");
+db.connect((err) => {
+  if (err) {
+    console.error("DB connection failed:", err);
+  } else {
+    console.log("MySQL connected");
+  }
 });
 
 module.exports = db;
