@@ -1,18 +1,23 @@
-const mysql = require("mysql2");
+const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "beyondchats",
-  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
-});
+const dbPath = path.join(__dirname, "database.sqlite");
 
-db.connect((err) => {
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error("DB connection failed:", err.message);
+    console.error("SQLite connection failed:", err.message);
   } else {
-    console.log("MySQL connected");
+    console.log("SQLite connected");
+
+    db.run(`
+      CREATE TABLE IF NOT EXISTS articles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        content TEXT,
+        source TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
   }
 });
 
