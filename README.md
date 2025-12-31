@@ -6,6 +6,15 @@ The goal of this assignment is to scrape blog articles from BeyondChats, store t
 
 ---
 
+**🚀 Live Demo**
+
+- **Frontend (Vercel):**
+👉 https://beyond-chats-iota.vercel.app/
+
+- **Backend API (Render):**
+👉 https://beyondchats-backend-o5i4.onrender.com/articles
+
+
 ##  Tech Stack
 
 - **Backend:** Node.js, Express.js
@@ -88,3 +97,21 @@ The goal of this assignment is to scrape blog articles from BeyondChats, store t
 git clone <your-github-repo-link>
 cd beyondchats-assignment
 
+- ** Design Decisions**
+
+- SQLite was chosen to simplify deployment     and avoid external database setup.
+
+- Some blog pages are client-side rendered, so specific article URLs were scraped directly for reliability.
+
+- Duplicate handling is intended to be enforced at the database layer when migrated to MySQL.
+
+
+- **👤 Author**
+
+- Mayank Kandpal
+- Full Stack Developer
+- Graphic Era University (2027)
+
+- **📄 License**
+
+This project is created for educational and assignment purposes.
