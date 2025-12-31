@@ -43,7 +43,11 @@ The goal of this assignment is to scrape blog articles from BeyondChats, store t
 - ├── server.js
 - ├── package.json
 - └── README.md
-
+- └── frontend/
+-    ├── src/
+-   │   └── App.js         # React UI
+-    ├── public/
+-    └── package.json
 
 ---
 
@@ -83,3 +87,4 @@ The goal of this assignment is to scrape blog articles from BeyondChats, store t
 ```bash
 git clone <your-github-repo-link>
 cd beyondchats-assignment
+
